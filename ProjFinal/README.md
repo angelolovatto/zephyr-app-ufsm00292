@@ -1,72 +1,71 @@
+# Temperature Monitoring with Zephyr RTOS
 
-# Monitoramento de temperatura
+Academic project developed during the **Embedded Systems Design** course at the **Federal University of Santa Maria (UFSM)**.
 
-Este projeto consiste no desenvolvimento de um firmware para a placa SAM R21 Xplained Pro, utilizando o Zephyr RTOS, com o objetivo de ler a temperatura de um sensor AT30TSE752A presente na placa de expansão I/O1 Xplained Pro.
+The goal of this project is to structure firmware for temperature monitoring on the **SAM R21 Xplained Pro**, using the **AT30TSE752A** temperature sensor available on the I/O1 Xplained Pro expansion board.
 
-O grande diferencial deste projeto é a adoção da metodologia TDD (Test-Driven Development), garantindo que a lógica de negócio seja robusta e verificável de forma independente do hardware, utilizando o framework de testes Ztest nativo do Zephyr.
-## Principais Tecnologias e Metodologias
+A central aspect of the work is the use of **Test-Driven Development (TDD)** to validate the temperature-conversion logic independently from the physical hardware.
 
--   Microcontrolador: ATSAMR21G18A
+## Technologies and concepts
 
--   Placa de Desenvolvimento: Microchip SAM R21 Xplained Pro
+- **Microcontroller:** ATSAMR21G18A
+- **Development board:** SAM R21 Xplained Pro
+- **Sensor:** AT30TSE752A
+- **Bus:** I²C
+- **RTOS:** Zephyr
+- **Language:** C
+- **Testing:** Ztest
+- **Methodology:** Test-Driven Development (TDD)
+- **Build/tooling:** CMake and west
 
--   Sensor: Atmel AT30TSE752A (via I²C) na placa I/O1 Xplained Pro
+## What was implemented
 
--   Sistema Operacional: Zephyr RTOS
+The first development phase focused on building and validating the software architecture before hardware integration.
 
--   Metodologia: Test-Driven Development (TDD)
+Completed work includes:
 
-Framework de Teste: Ztest
+- project structure and Zephyr configuration files;
+- sensor-driver interface definition;
+- temperature conversion logic;
+- host-side tests for the conversion logic;
+- validation of the software logic using Zephyr's testing tools.
 
-### 🛠️ Hardware Necessário
--  Placa SAM R21 Xplained Pro
+## Project status
 
--   Placa de expansão I/O1 Xplained Pro
+### Phase 1 — Software foundation and testing
 
--   Cabo Micro-USB
+- [x] Define project architecture and folder structure
+- [x] Create Zephyr configuration files
+- [x] Define the temperature-driver interface
+- [x] Implement temperature conversion logic using TDD
+- [x] Validate the logic on a host/native target
 
-### ⚙️ Software e Toolchain
+### Phase 2 — Hardware integration
 
-Para compilar e testar este projeto, você precisará ter o ambiente de desenvolvimento do Zephyr completamente configurado.
+- [ ] Validate the board/toolchain with a basic firmware test
+- [ ] Adjust the Device Tree overlay for the I²C bus
+- [ ] Implement the low-level Zephyr I²C access
+- [ ] Read raw data from the physical sensor
+- [ ] Validate complete temperature acquisition on hardware
 
--   Zephyr SDK (incluindo west, toolchain, etc.)
-## Roadmap
+### Phase 3 — Application features
 
-Este projeto foi estruturado em fases claras para garantir um desenvolvimento progressivo e testável.
+- [ ] Add periodic temperature acquisition
+- [ ] Add Zephyr logging for temperature values
+- [ ] Optional shell command for on-demand measurements
+- [ ] Optional UART output
 
-#### Fase 1: Fundação e Teste da Lógica (Desenvolvimento no Host)
-O objetivo desta fase é construir e validar toda a lógica de software no computador local, sem depender do hardware físico.
+## Why the project is structured this way
 
-- [x] Definição da arquitetura e estrutura de pastas do projeto.
+The project intentionally separates the **business logic** from the **hardware-access layer**. This makes it possible to test the conversion logic independently and reduces the amount of code that depends directly on the physical board.
 
-- [x] Criação dos arquivos de configuração do Zephyr (CMakeLists.txt, prj.conf).
+This repository reflects the actual development status: the software foundation and tests were completed, while full hardware integration remained as future work.
 
-- [x] Definição da interface do driver do sensor (driver_temp_at30tse.h).
+## Academic context
 
-- [x] Desenvolvimento TDD da lógica de conversão de dados brutos para graus Celsius.
+Developed as coursework for **Embedded Systems Design — UFSM**.
 
-- [x] Execução e validação dos testes de lógica no host com o alvo native_posix.
+## Author
 
-#### Fase 2: Integração com o Hardware
-Com a lógica validada, o próximo passo é integrar o software com o hardware real e garantir a comunicação.
-
-- [ ] Sanity Check: Compilar e gravar o exemplo "Blinky" na SAM R21 Xplained Pro para validar o toolchain e a conexão com a placa.
-
-- [ ] Validar e ajustar o Device Tree Overlay (boards/samr21_xpro.overlay) para a correta configuração do barramento I²C.
-
-- [ ] Implementar as chamadas de baixo nível da API I²C do Zephyr no driver do sensor.
-
-- [ ] Realizar testes de integração para ler os dados brutos diretamente do sensor.
-
-- [ ] Validar a leitura completa da temperatura em Celsius utilizando o hardware.
-
-#### Fase 3: Funcionalidades da Aplicação
-Com o driver funcionando, esta fase foca em construir a aplicação final.
-
-- [ ] Criar um loop principal (main.c) para realizar leituras de temperatura periódicas.
-
-- [ ] Utilizar o sistema de logs do Zephyr para exibir as temperaturas lidas no console.
-
-- [ ] (Opcional) Implementar um shell customizado para solicitar leituras de temperatura sob demanda.
-
-- [ ] (Opcional) Enviar os dados de temperatura via interface UART.
+**Angelo Luigi Bocchi Lovatto**  
+Computer Engineering — Federal University of Santa Maria (UFSM)
